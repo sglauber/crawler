@@ -1,15 +1,18 @@
 const printReport = (pages) => {
-    const pageEntries = Object.entries(pages).sort((a,b) => mySort(a[1],b[1]))
+    const sortedPages = sortPages(pages)
 
+    console.log("--------------------------")
     console.log(`The report is starting...`);
-    for(let [url, count] of pageEntries) {
+    for(const [url, count] of sortedPages) {
         console.log(`Found ${count} internal links to ${url}`);
     }
+    console.log("--------------------------")
 };
 
-
-const mySort = (a, b) => {
-    return b - a;
+const sortPages = (pages) => {
+    const pagesArr = Object.entries(pages);
+    pagesArr.sort((pageA, pageB) => pageB[1] - pageA[1])
+    return pagesArr;
 };
 
-module.exports = { printReport };
+module.exports = { printReport, sortPages };
