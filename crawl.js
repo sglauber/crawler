@@ -56,16 +56,16 @@ const crawlPage = async (baseURL, currentURL, pages) => {
     if (pages[normalizedURL] > 0) {
         pages[normalizedURL]++;
         return pages;
-    } else {
-        pages[normalizedURL] = 1;
     }
+
+    pages[normalizedURL] = 1;
 
     let htmlBody = '';
     try {
         const res = await fetch(currentURL);
         if(res.status >= 400) {
             console.log(`Got HTTP error, status code: ${res.status}`);
-            return;
+            return pages;
         }
 
         const contentType = res.headers.get("Content-Type");
